@@ -39,11 +39,15 @@ def train_test_dist(train_df, test_df, col_name,
         train_test_count = pd.concat([train_count, test_count])
         sns.barplot(x=col_name, y='count', hue='data', order=train_count[col_name], data=train_test_count, alpha=0.5, ax=ax)
         if not target_name == None:
+            is_binary_target = train_df[target_name].nunique() == 2
+
             target_ratio = train_df.loc[:,[col_name,target_name]].groupby(col_name).mean()\
                 .loc[train_count[col_name],:] # Sort same order to histogram.
             ax2 = ax.twinx()
             target_ratio.plot.line(ax=ax2, color='r')
             ax2.set_ylabel(target_name + ' mean')
+            if is_binary_target:
+                ax2.set_ylim(0,1)
         if not disp_num == None:
             ax.set_xlim(-0.5, disp_num)
         for tick in ax.get_xticklabels():

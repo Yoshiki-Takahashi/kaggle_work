@@ -1,7 +1,7 @@
 from sklearn.base import BaseEstimator, TransformerMixin
 import numpy as np
 
-class FreqEncoder(BaseEstimator, TransformerMixin):
+class FreqArgEncoder(BaseEstimator, TransformerMixin):
     def __init__(self):
         self.encode_dicts = None
 
